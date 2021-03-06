@@ -8,3 +8,6 @@ In this repository i will share with you all of my ROS projects and also the the
          - [x] :+1: fetching some models from gazebo online liberary 
          - [x] :+1: adding all of the models in the same world 
          - [x] :+1: making C++ code to print entery message when we start gazebo
+- [x] Finish my changes
+- [ ] Push my commits to GitHub
+- [ ] Open a pull request
