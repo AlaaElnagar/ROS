@@ -4,7 +4,7 @@ In this repository i will share with you all of my ROS projects and also the the
 # Task 1:
 Lets start with gazebo first project :
 ⋅⋅*the project based on making the folloiwng:-
--[x]   Finish my changesMaking gazebo world
+- [x]   Finish my changesMaking gazebo world
 - [x]  making two robots 
 - [x]  fetching some models from gazebo online liberary 
 - [x]  making C++ code to print entery message when we start gazebo
