@@ -1,6 +1,6 @@
 ![Ros picture](https://raw.githubusercontent.com/AlaaElnagar/ROS/master/pic/ROSPic.jpg)
 # Introduction
-In this repository i will share with you all of my ROS projects and also the the important tips and tricks concerned with Gazebo and ros 
+In this repository i will share with you all of my ROS projects and also the the important tips and tricks concerned with Gazebo and ROS
 # Task 1:
 Lets start with gazebo first project :
 ⋅⋅*the project based on making the folloiwng:-
