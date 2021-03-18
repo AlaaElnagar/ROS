@@ -8,5 +8,5 @@ Lets start with gazebo first project :
 - [x]  making two robots 
 - [x]  fetching some models from gazebo online liberary 
 - [x]  making C++ code to print entery message when we start gazebo
-![My robots Pic](https://raw.githubusercontent.com/AlaaElnagar/ROS/master/RosModel.jpg | width=100)
+`![My robots Pic](https://raw.githubusercontent.com/AlaaElnagar/ROS/master/RosModel.jpg | width=100)`
 
