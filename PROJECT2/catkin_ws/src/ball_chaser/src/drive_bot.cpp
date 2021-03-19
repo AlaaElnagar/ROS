@@ -1,15 +1,22 @@
+/*   Udacity Software Robotic Engineer
+*	 Nanodegree
+*	 Task2 (Go chase it)
+*	 By:Alaa Elnagar
+*	 Mb:+201019793647
+*	 E:alaaelngar560@yahoo.com
+*/
 #include "ros/ros.h"
 #include "geometry_msgs/Twist.h"
-//Include the ball_chaser "DriveToTarget" header file
 #include "ball_chaser/DriveToTarget.h"
 // ROS::Publisher motor commands;
 ros::Publisher motor_command_publisher;
+/******************************************************************************************************************
+*a handle_drive_request callback function that executes whenever a drive_bot service is requested
+* This function should publish the requested linear x and angular velocities to the robot wheel joints
+*After publishing the requested velocities, a message feedback should be returned with the requested wheel velocities
+******************************************************************************************************************/
 
-// TODO: Create a handle_drive_request callback function that executes whenever a drive_bot service is requested
-// This function should publish the requested linear x and angular velocities to the robot wheel joints
-// After publishing the requested velocities, a message feedback should be returned with the requested wheel velocities
-bool handle_drive_request(ball_chaser::DriveToTarget::Request& req,
-    ball_chaser::DriveToTarget::Response& res)
+bool handle_drive_request(ball_chaser::DriveToTarget::Request& req, ball_chaser::DriveToTarget::Response& res)
 {
     ROS_INFO("DriveToTarget received - linear_x:%1.2f, angular_z:%1.2f", (float)req.linear_x, (float)req.angular_z);
 	
@@ -23,7 +30,7 @@ bool handle_drive_request(ball_chaser::DriveToTarget::Request& req,
         // Return a response message
     res.msg_feedback = "Alaa Elnagar Robot response linear_x: " + std::to_string(req.linear_x) + " , angular_z: " + std::to_string(req.angular_z);
     ROS_INFO_STREAM(res.msg_feedback);
-
+    return true;
 }	
 	
 	
@@ -41,8 +48,6 @@ int main(int argc, char** argv)
     // a drive /ball_chaser/command_robot service with a handle_drive_request callback function
     ros::ServiceServer service = n.advertiseService("/ball_chaser/command_robot", handle_drive_request);
     ROS_INFO("Ready to send Robot commands");
-
- 
 
     //Handle ROS communication events
        ros::spin();

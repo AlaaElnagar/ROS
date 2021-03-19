@@ -4,6 +4,8 @@
 
   <link name="robot_footprint"></link>
 
+  <xacro:include filename="$(find my_robot)/urdf/my_robot.gazebo" />
+
   <joint name="robot_footprint_joint" type="fixed">
     <origin xyz="0 0 0" rpy="0 0 0" />
     <parent link="robot_footprint"/>
@@ -38,7 +40,7 @@
     </visual>
 
 
-    <collision name='collision'>
+    <collision name='back_caster_collision'>
       <origin xyz="-0.2 0 -0.1" rpy=" 0 0 0"/>
       <geometry>
         <sphere radius="0.1"/>
@@ -52,7 +54,7 @@
       </geometry>
     </visual>
 
-    <collision name='collision'>
+    <collision name='front_caster_collision'>
       <origin xyz="0.2 0 -0.1" rpy=" 0 0 0"/>
       <geometry>
         <sphere radius="0.1"/>
@@ -66,8 +68,8 @@
       </geometry>
     </visual>
 
-  </link>
 
+  </link>
 
   <link name='left_wheel'>
     <pose>0 0 0 0 0 0</pose>
@@ -83,14 +85,14 @@
     </inertial>
 
     <collision name='collision'>
-      <origin xyz="0 0 0" rpy=" 0 0 0"/>
+      <origin xyz="0 0 0" rpy=" 0 1.5707 1.5707"/>
       <geometry>
         <cylinder radius="0.1" length="0.06"/>
       </geometry>
     </collision>
 
     <visual name='left_wheel_visual'>
-      <origin xyz="0 0 0" rpy=" 0 0 0"/>
+      <origin xyz="0 0 0" rpy=" 0 1.5707 1.5707"/>
       <geometry>
         <cylinder radius="0.1" length="0.06"/>
       </geometry>
@@ -112,14 +114,14 @@
     </inertial>
 
     <collision name='right_wheel_collision'>
-      <origin xyz="0 0 0" rpy=" 0 0 0"/>
+      <origin xyz="0 0 0" rpy=" 0 1.5707 1.5707"/>
       <geometry>
         <cylinder radius="0.1" length="0.06"/>
       </geometry>
     </collision>
 
     <visual name='right_wheel_visual'>
-      <origin xyz="0 0 0" rpy=" 0 0 0"/>
+      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
       <geometry>
         <cylinder radius="0.1" length="0.06"/>
       </geometry>
@@ -128,7 +130,7 @@
   </link>
 
   <joint type="continuous" name="left_wheel_hinge">
-    <origin xyz="0.2 -.26 -0.15" rpy="0 0 0"/>
+    <origin xyz="0.2 -.23 -0.1" rpy="0 0 0"/>
     <child link="left_wheel"/>
     <parent link="chassis"/>
     <axis xyz="0 1 0" rpy="0 0 0"/>
@@ -137,7 +139,7 @@
   </joint>
 
   <joint type="continuous" name="right_wheel_hinge">
-    <origin xyz="0.2 .26 -0.15" rpy="0 0 0"/>
+    <origin xyz="0.2 .23 -0.1" rpy="0 0 0"/>
     <child link="right_wheel"/>
     <parent link="chassis"/>
     <axis xyz="0 1 0" rpy="0 0 0"/>
@@ -208,6 +210,7 @@
       <geometry>
         <box size="0.1 0.1 0.1"/>
       </geometry>
+
     </visual>
 
   </link>
@@ -221,6 +224,29 @@
     <dynamics damping="1.0" friction="1.0"/>
   </joint>
 
+  
+
+  <gazebo reference="right_wheel_hinge">
+      <material>Gazebo/Blue</material>
+  </gazebo>
+
+  <gazebo reference="left_wheel_hinge">
+      <material>Gazebo/Blue</material>
+  </gazebo>
+
+  <gazebo reference="chassis">
+      <material>Gazebo/Yellow</material>
+  </gazebo>
+
+
+
+
+
+  <gazebo reference="hokuyo">
+      <material>Gazebo/Red</material>
+  </gazebo>
+
 
 
 </robot>
+

@@ -1,16 +1,25 @@
+/*   Udacity Software Robotic Engineer
+*	 Nanodegree
+*	 Task2 (Go chase it)
+*	 By:Alaa Elnagar
+*	 Mb:+201019793647
+*	 E:alaaelngar560@yahoo.com
+*/
+
 #include "ros/ros.h"
 #include "ball_chaser/DriveToTarget.h"
 #include <sensor_msgs/Image.h>
 
 // Define a global client that can request services
 ros::ServiceClient client;
-
+/*************************************************************************************************
 // This function calls the command_robot service to drive the robot in the specified direction
+*************************************************************************************************/
 void drive_robot(float lin_x, float ang_z)
 {
 	    ROS_INFO_STREAM("Moving the Robot to the ball");
 
-    // TODO: Request a service and pass the velocities to it to drive the robot
+    //  Request a service and pass the velocities to it to drive the robot
 	ball_chaser::DriveToTarget srv;
     srv.request.linear_x =  lin_x;
     srv.request.angular_z = ang_z;
@@ -31,11 +40,11 @@ void process_image_callback(const sensor_msgs::Image img)
     for (int i = 0; i < img.height * img.step; i++) {
 		
         if ( (img.data[i]+img.data[i+1]+img.data[i+2] ) == 765) {
-			uniform_image ==  true ;          
-		  if (i % img.step < img.step/3){
+			uniform_image =  true ;          
+		  if ((i % img.step) < img.step/3){
 			   drive_robot(0.7, 1.57);
 		   }
-		   else if (i % img.step < img.step/2){
+		   else if ((i % img.step) < img.step/2){
 			   drive_robot(0.7, 1.57);
 			   
 		   }
