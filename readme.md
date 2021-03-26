@@ -14,7 +14,7 @@ Lets start with gazebo first project :
 # Task 2:
 
 ⋅⋅*the project based on making the folloiwng:-                                                                                                                        
-- [x]   Finish my changesMaking gazebo world
-- [x]  making two robots 
-- [x]  fetching some models from gazebo online liberary 
-- [x]  making C++ code to print entery message when we start gazebo
+- [x]  Finish my Own Robot model and making white ball model 
+- [x]  Adding Lidar and camera to the robot 
+- [x]  Programming of image processing node to check the ball place tack it 
+- <img src="https://raw.githubusercontent.com/AlaaElnagar/ROS/master/project2_1/pic/Ros2.PNG" />
