@@ -11,4 +11,9 @@ Lets start with gazebo first project :
 - [x]  making C++ code to print entery message when we start gazebo
 
 # Task 2:
-`
+`- <img src="https://raw.githubusercontent.com/AlaaElnagar/ROS/master/project2_1/pic/ROS.PNG" width="200" height="200" />
+⋅⋅*the project based on making the folloiwng:-                                                                                                                        
+- [x]   Finish my changesMaking gazebo world
+- [x]  making two robots 
+- [x]  fetching some models from gazebo online liberary 
+- [x]  making C++ code to print entery message when we start gazebo
