@@ -18,3 +18,5 @@ Lets start with gazebo first project :
 - [x]  Adding Lidar and camera to the robot 
 - [x]  Programming of image processing node to check the ball place tack it 
 - <img src="https://raw.githubusercontent.com/AlaaElnagar/ROS/master/project2_1/pic/Ros2.PNG" />
+- <img src="https://raw.githubusercontent.com/AlaaElnagar/ROS/master/project2_1/pic/ros4.PNG" />
+
