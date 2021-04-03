@@ -1,0 +1,174 @@
+#create catkin ws
+
+mkdir -p /home/workspace/catkin_ws/src
+cd /home/workspace/catkin_ws/src
+catkin_init_workspace
+
+#copy project 2 to ctkin
+
+#src the working space 
+cd /home/workspace/catkin_ws/
+catkin_make
+source devel/setup.bash
+roslaunch my_robot world.launch
+
+#
+#Create pgm map from Gazebo world file for ROS localization
+	Add the package to your workspace >>src
+	catkin_make 
+	source devel/setup.bash
+	Add your world file to world folder
+	Add this line at the end of the world file, before </world> tag:
+ <plugin filename="libcollision_map_creator.so" name="collision_map_creator"/>	
+	
+	Open a terminal, run gzerver with the map file 
+	gzserver src/pgm_map_creator/world/AlaaElnagar
+	Open another terminal, launch the request_publisher node
+	 roslaunch pgm_map_creator request_publisher.launch
+	Wait for the plugin to generate map. It will be located in the map folder
+
+//--------------------------
+	cd /home/workspace/catkin_ws/src/my_robot
+	mkdir maps
+	sudo apt-get install libignition-math2-dev protobuf-compiler
+	cd /home/workspace/catkin_ws/src/
+	git clone https://github.com/udacity/pgm_map_creator.git
+	cd ..
+	catkin_make
+	3aw2
+	Copy the Gazebo world you created to the world folder
+	cp <YOUR GAZEBO WORLD FILE> src/pgm_map_creator/world/<YOUR GAZEBO WORLD FILE>
+
+ Open the map file using the editor of your choice. Add the following tag towards the end of the file, but just before </world> tag:
+	<plugin filename="libcollision_map_creator.so" name="collision_map_creator"/>
+	
+	Open a terminal, run gzerver with the map file:
+	gzserver src/pgm_map_creator/world/AlaaElnagar
+	
+Open another terminal, launch the request_publisher node
+
+	roslaunch pgm_map_creator request_publisher.launch
+
+#---------------------------------------------------------------------------
+AMCL launch file
+
+	cd /home/workspace/catkin_ws/src/my_robot/launch/
+	vi amcl.launch 
+
+
+
+<?xml version="1.0"?>
+<launch>
+
+  <!-- argument of the path to  map file -->
+  <arg name="map_file" default="$(find my_robot)/maps/AlaaElnagar.yaml"/>
+  <!-- map_server node def -->	
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+
+  <!-- Amcl Node-->
+  <node pkg="amcl" type="amcl" name="amcl" output="screen">
+    <remap from="scan" to="my_robot/laser/scan"/>
+    <remap from="scan" to="<YOUR PACKAGE NAME>/laser/scan"/>
+    <param name="odom_frame_id" value="odom"/>
+    <param name="odom_model_type" value="diff-corrected"/>
+    <param name="base_frame_id" value="robot_footprint"/>
+    <param name="global_frame_id" value="map"/>
+    <param name="initial_pose_x" value="0"/>
+    <param name="initial_pose_y" value="0"/>
+  <!-- Move Base -->
+  <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen">
+    <remap from="scan" to="my_robot/laser/scan"/>
+    
+    <param name="base_global_planner" value="navfn/NavfnROS" />
+    <param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS"/>
+    
+    <rosparam file="$(find my_robot)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find my_robot)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find my_robot)/config/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find my_robot)/config/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find my_robot)/config/base_local_planner_params.yaml" command="load" />
+
+
+
+
+
+
+    <!--  AMCL Parameters -->
+    <param name="min_particles" value="50"/>
+    <param name="max_particles" value="200"/>
+    <param name="update_min_a" value="0.1"/>
+    <param name="update_min_d" value="0.25"/>
+
+    <!-- Laser -->
+    <param name="laser_max_beams" value="20"/>
+    <param name="laser_z_rand" value="0.05"/>
+    <param name="laser_z_hit" value="0.95"/>
+
+    <!-- Odometry -->
+    <param name="odom_model_type" value="diff-corrected"/>
+    <param name="base_frame_id" value="robot_footprint"/>
+    <param name="global_frame_id" value="map"/>
+    <param name="odom_frame_id" value="odom"/>
+    <param name="odom_alpha1" value="0.05"/>
+    <param name="odom_alpha2" value="0.05"/>
+    <param name="odom_alpha3" value="0.05"/>
+    <param name="odom_alpha4" value="0.05"/>
+  </node>
+
+  <!-- Move base -->
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find udacity_bot)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find udacity_bot)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find udacity_bot)/config/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find udacity_bot)/config/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find udacity_bot)/config/base_local_planner_params.yaml" command="load" />
+
+    <remap from="cmd_vel" to="cmd_vel"/>
+    <remap from="odom" to="odom"/>
+    <remap from="scan" to="udacity_bot/laser/scan"/>
+
+    <param name="base_global_planner" type="string" value="navfn/NavfnROS" />
+    <param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS"/>
+
+  </node>
+
+
+</launch>
+
+
+
+//----------------------------------------------------------------------
+
+
+cd home/workspace/catkin_ws/src/my_robot
+mkdir config
+cd config
+
+	wget https://s3-us-west-1.amazonaws.com/udacity-robotics/Resource/where_am_i/config.zip
+	unzip config.zip
+	rm config.zip
+
+#Teleop Package
+	cd /home/workspace/catkin_ws/src
+	git clone https://github.com/ros-teleop/teleop_twist_keyboard
+
+	cd ..
+	catkin_make
+	source devel/setup.bash
+//run the teleop script
+	rosrun teleop_twist_keyboard teleop_twist_keyboard.py
+
+//launching the robot
+	cd /home/workspace/catkin_ws/
+	roslaunch my_robot world.launch
+
+//In a new terminal, launch the amcl launch file:
+
+	roslaunch my_robot amcl.launch
+
+
+	
+
+
+
+
